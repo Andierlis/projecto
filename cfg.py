@@ -1,0 +1,4 @@
+"""Configuraciones del BOT"""
+API_HASH = '213e85670cd03dfdcfc4936c86d153a2'
+API_ID = 15091118
+BOT_TOKEN = '5761229034:AAHl7-SkdS6V-JkwVrSJSvKYuKu3-zSaDCY'
