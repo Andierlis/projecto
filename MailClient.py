@@ -68,5 +68,7 @@ class MailClient():
             m = MultipartEncoderMonitor(e,lambda monitor: upload_callback(monitor,size,filename,start,bot,message))
             response=self.__session.post(f'https://correo.uclv.edu.cu/h/search{url}',data=m,headers={'Content-Disposition':'form-data',"Content-Type": m.content_type,"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36"})
             print(response.status_code)
+            if response.status_code == 200:
+                return f'{self.host}home/{self.username}/Briefcase/{quote(filename)}?auth=co'
+            else: return False
         
-        return f'{self.host}home/{self.username}/Briefcase/{quote(filename)}?auth=co'

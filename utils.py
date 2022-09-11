@@ -93,8 +93,12 @@ def proces_upload(user_info,filename,msg,bot):
                     while cont < partes:
                         filename = file+'.'+str('%03d' % (cont))
                         fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,bot,msg,mail)
-                        list_files.append(fileup)
-                        cont += 1
+                        if fileup:
+                            list_files.append(fileup)
+                            cont += 1
+                        else:
+                            msg = bot.send_message(msg.chat.id,'Error de Subida')
+                            return
                 else:
                     msg = bot.send_message(msg.chat.id,'Error al Iniciar Sesion')
                     return
@@ -112,6 +116,9 @@ def proces_upload(user_info,filename,msg,bot):
             file = filename.split('/')[-1]
             if mail.login():
                 fileup=upload_file(user_info,filename,progressupload,bot,msg,mail)
+                if not fileup:
+                    msg = bot.send_message(msg.chat.id,'Error de Subida')
+                    return
             else:
                 msg = bot.send_message(msg.chat.id,'Error al Iniciar Sesion')
                 return
