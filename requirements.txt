@@ -1,0 +1,9 @@
+pyrogram
+tgcrypto
+nest-asyncio
+beautifulsoup4
+bs4
+https://github.com/Ripeey/Conversation-Pyrogram/archive/refs/heads/main.zip
+requests
+user-agent
+yt-dlp
