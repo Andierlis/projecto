@@ -14,6 +14,8 @@ from downloader.wget import download as downloadwget
 from downloader.mediafire import get
 from zip import split,compressionone,getBytes
 from JsonDB import JsonDatabase
+from MailClient import MailClient
+
 
 #Apps de Terceros
 from pyrogram import Client,filters
