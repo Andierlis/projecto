@@ -7,3 +7,4 @@ https://github.com/Ripeey/Conversation-Pyrogram/archive/refs/heads/main.zip
 requests
 user-agent
 yt-dlp
+requests_toolbelt
