@@ -112,7 +112,7 @@ def Bienvenido(client,message):
     
     elif '/set' in mensaje:
         try:
-            user = mensaje.split(' ')[-1].split(':')
+            user = mensaje.split(' ')[-1].split(',')
             user_info['host'] = user[0]
             user_info['username'] = user[1]
             user_info['password'] = user[2]
