@@ -61,7 +61,8 @@ def build_menu(buttons,n_cols,header_buttons=None,footer_buttons=None):
         menu.append(footer_buttons)
     return menu
 
-def upload_file(user_info,file_path,callback,bot,message,mail):
+def upload_file(user_info,file_path,callback,bot,message):
+    mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
     if mail.login():
         return mail.uploadFile(file_path,callback,bot,message)
 
@@ -87,12 +88,11 @@ def proces_upload(user_info,filename,msg,bot):
             msg.delete()
             msg = bot.send_message(msg.chat.id,'**📶Uploading....**')
             list_files=[]
-            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             if comprimio:
                 cont = 1
                 while cont < partes:
                     filename = file+'.'+str('%03d' % (cont))
-                    fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,bot,msg,mail)
+                    fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,bot,msg)
                     list_files.append(fileup)
                     cont += 1
             text = '**Files:**\n\n'
@@ -105,9 +105,8 @@ def proces_upload(user_info,filename,msg,bot):
         else:
             msg.delete()
             msg = bot.send_message(msg.chat.id,'Uploading....')
-            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             file = filename.split('/')[-1]
-            fileup=upload_file(user_info,filename,progressupload,bot,msg,mail)
+            fileup=upload_file(user_info,filename,progressupload,bot,msg)
             text = f'**Files:**\n\n {fileup}'
             msg.delete()
             lista = [fileup]

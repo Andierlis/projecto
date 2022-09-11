@@ -167,13 +167,12 @@ def media_telegram(client,message,user_info):
             comprimio,partes = split(compressionone(file,filename),f'./downloads/',getBytes(f'{user_info["zips"]}MiB'))
             msg.delete()
             msg = bot.send_message(msg.chat.id,'**📶Uploading....**')
-            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             list_files=[]
             if comprimio:
                 cont = 1
                 while cont < partes:
                     filename = file+'.'+str('%03d' % (cont))
-                    fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,msg,bot,mail)
+                    fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,msg,bot)
                     list_files.append(fileup)
                     cont += 1
             text = '**Files:**\n\n'
@@ -186,9 +185,8 @@ def media_telegram(client,message,user_info):
         else:
             msg.delete()
             msg = bot.send_message(msg.chat.id,'**📶Uploading....**')
-            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             file = filename.split('\\')[-1]
-            fileup=upload_file(user_info,filename,progressupload,msg,bot,mail)
+            fileup=upload_file(user_info,filename,progressupload,msg,bot)
             text = f'**Files:**\n\n {fileup}'
             msg.delete()
             lista = [fileup]
