@@ -103,7 +103,7 @@ def Bienvenido(client,message):
         reply_botton = InlineKeyboardMarkup(options)
         bot.send_message(message.chat.id,text,reply_markup=reply_botton)
         return
-        
+
     elif message.media:
         media_telegram(client,message,user_info)
 
@@ -153,7 +153,7 @@ def media_telegram(client,message,user_info):
         msg = bot.send_message(msg.chat.id,'✅Descargado Correctamente',reply_to_message_id=message.id)
         if os.path.getsize(filename)/1048576 > int(user_info['zips']):
             msg.delete()
-            file =  ''.join(filename.split('\\')[-1].split('.')[:-1])+ '.zip'
+            file =  ''.join(filename.split('/')[-1].split('.')[:-1])+ '.zip'
             tama = int(os.path.getsize(filename)/1048576)
             tpart = int(user_info['zips'])
             part = math.ceil(tama/tpart)  
