@@ -103,7 +103,10 @@ def Bienvenido(client,message):
         reply_botton = InlineKeyboardMarkup(options)
         bot.send_message(message.chat.id,text,reply_markup=reply_botton)
         return
-    
+        
+    elif message.media:
+        media_telegram(client,message,user_info)
+
     elif '/add' in mensaje:
         user = mensaje.split(' ')[-1]
         jdb.create_user(user)
@@ -125,9 +128,6 @@ def Bienvenido(client,message):
         jdb.create_user(user)
         bot.send_message(message.chat.id,f'**📛Usuario @{user} Eliminado Correctamente**')
         jdb.save()
-
-    elif message.media:
-        media_telegram(client,message,user_info)
 
     elif 'http' in mensaje or 'youtu' in mensaje or 'youtube' in mensaje:
         download(client,message,user_info)
