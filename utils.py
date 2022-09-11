@@ -61,8 +61,7 @@ def build_menu(buttons,n_cols,header_buttons=None,footer_buttons=None):
         menu.append(footer_buttons)
     return menu
 
-def upload_file(user_info,file_path,callback,bot,message):
-    mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
+def upload_file(user_info,file_path,callback,bot,message,mail):
     if mail.login():
         return mail.uploadFile(file_path,callback,bot,message)
 
