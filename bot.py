@@ -102,6 +102,7 @@ def Bienvenido(client,message):
         ]
         reply_botton = InlineKeyboardMarkup(options)
         bot.send_message(message.chat.id,text,reply_markup=reply_botton)
+        return
     
     elif '/add' in mensaje:
         user = mensaje.split(' ')[-1]
@@ -110,13 +111,15 @@ def Bienvenido(client,message):
         jdb.save()
     
     elif '/set' in mensaje:
-        user = mensaje.split(' ')[-1].split(':')
-        userinfo['host'] = user[0]
-        userinfo['username'] = user[1]
-        userinfo['password'] = user[2]
-        bot.send_message(message.chat.id,f'**✳️Configuracion Registrada Correctamente**')
-        jdb.save()
-
+        try:
+            user = mensaje.split(' ')[-1].split(':')
+            user_info['host'] = user[0]
+            user_info['username'] = user[1]
+            user_info['password'] = user[2]
+            bot.send_message(message.chat.id,f'**✳️Configuracion Registrada Correctamente**')
+            jdb.save()
+        except:
+            bot.send_message(message.chat.id,f'**📛Error al Registrar Configuracion**')
     elif '/ban' in mensaje:
         user = mensaje.split(' ')[-1]
         jdb.create_user(user)
