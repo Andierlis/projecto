@@ -113,7 +113,7 @@ def Bienvenido(client,message):
         user = mensaje.split(' ')[-1].split(':')
         userinfo['host'] = user[0]
         userinfo['username'] = user[1]
-        userinfo['password'] = user[0]
+        userinfo['password'] = user[2]
         bot.send_message(message.chat.id,f'**✳️Configuracion Registrada Correctamente**')
         jdb.save()
 
