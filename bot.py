@@ -168,13 +168,18 @@ def media_telegram(client,message,user_info):
             msg.delete()
             msg = bot.send_message(msg.chat.id,'**📶Uploading....**')
             list_files=[]
+            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             if comprimio:
                 cont = 1
-                while cont < partes:
-                    filename = file+'.'+str('%03d' % (cont))
-                    fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,msg,bot)
-                    list_files.append(fileup)
-                    cont += 1
+                if mail.login():
+                    while cont < partes:
+                        filename = file+'.'+str('%03d' % (cont))
+                        fileup=upload_file(user_info,f'./downloads/{filename}',progressupload,msg,bot,mail)
+                        list_files.append(fileup)
+                        cont += 1
+                else:
+                    msg = bot.send_message(msg.chat.id,'Error al Iniciar Sesion')
+                    return
             text = '**Files:**\n\n'
             for f in list_files:
                 text+=f+'\n\n'
@@ -185,8 +190,13 @@ def media_telegram(client,message,user_info):
         else:
             msg.delete()
             msg = bot.send_message(msg.chat.id,'**📶Uploading....**')
+            mail = MailClient(user_info['username'],user_info['password'],user_info['host'])
             file = filename.split('\\')[-1]
-            fileup=upload_file(user_info,filename,progressupload,msg,bot)
+            if mail.login():
+                fileup=upload_file(user_info,filename,progressupload,msg,bot,mail)
+            else:
+                msg = bot.send_message(msg.chat.id,'Error al Iniciar Sesion')
+                return 
             text = f'**Files:**\n\n {fileup}'
             msg.delete()
             lista = [fileup]
